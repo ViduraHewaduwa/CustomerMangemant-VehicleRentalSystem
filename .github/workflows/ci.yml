@@ -33,6 +33,7 @@ jobs:
           cache: "maven"
 
       - name: Build and test
+        working-directory: "Customer-Service "
         run: mvn -B verify
 
       - name: SonarCloud Scan
