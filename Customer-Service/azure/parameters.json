@@ -12,6 +12,8 @@
     "dbUsername": { "value": "<db-username>" },
     "dbPassword": { "value": "<db-password>" },
     "jwtSecret": { "value": "<jwt-secret>" },
+    "eurekaUrl": { "value": "http://<eureka-host>:8761/eureka/" },
+    "eurekaEnabled": { "value": true },
     "cpu": { "value": "0.5" },
     "memory": { "value": "1.0Gi" }
   }

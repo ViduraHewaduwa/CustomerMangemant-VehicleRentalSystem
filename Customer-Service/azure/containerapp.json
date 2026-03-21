@@ -45,6 +45,14 @@
     "jwtSecret": {
       "type": "securestring"
     },
+    "eurekaUrl": {
+      "type": "string",
+      "defaultValue": ""
+    },
+    "eurekaEnabled": {
+      "type": "bool",
+      "defaultValue": true
+    },
     "cpu": {
       "type": "string",
       "defaultValue": "0.5"
@@ -159,6 +167,14 @@
                 {
                   "name": "JWT_SECRET",
                   "secretRef": "jwt-secret"
+                },
+                {
+                  "name": "EUREKA_ENABLED",
+                  "value": "[if(parameters('eurekaEnabled'), 'true', 'false')]"
+                },
+                {
+                  "name": "EUREKA_URL",
+                  "value": "[parameters('eurekaUrl')]"
                 }
               ]
             }

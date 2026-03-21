@@ -11,11 +11,39 @@ param dbUsername string
 param dbPassword string
 @secure()
 param jwtSecret string
+param eurekaUrl string = ''
+param eurekaEnabled bool = true
 param cpu string = '0.5'
 param memory string = '1.0Gi'
 
 var acrSku = 'Basic'
 var acrPullRoleDefinitionId = '7f951dda-4ed3-4680-a7ca-43fe172d538d'
+var appEnvVars = [
+  {
+    name: 'SPRING_DATASOURCE_URL'
+    value: dbUrl
+  }
+  {
+    name: 'SPRING_DATASOURCE_USERNAME'
+    value: dbUsername
+  }
+  {
+    name: 'SPRING_DATASOURCE_PASSWORD'
+    secretRef: 'db-password'
+  }
+  {
+    name: 'JWT_SECRET'
+    secretRef: 'jwt-secret'
+  }
+  {
+    name: 'EUREKA_ENABLED'
+    value: eurekaEnabled ? 'true' : 'false'
+  }
+  {
+    name: 'EUREKA_URL'
+    value: eurekaUrl
+  }
+]
 
 resource acr 'Microsoft.ContainerRegistry/registries@2023-01-01-preview' = {
   name: acrName
@@ -93,24 +121,7 @@ resource containerApp 'Microsoft.App/containerApps@2023-05-01' = {
             cpu: json(cpu)
             memory: memory
           }
-          env: [
-            {
-              name: 'SPRING_DATASOURCE_URL'
-              value: dbUrl
-            }
-            {
-              name: 'SPRING_DATASOURCE_USERNAME'
-              value: dbUsername
-            }
-            {
-              name: 'SPRING_DATASOURCE_PASSWORD'
-              secretRef: 'db-password'
-            }
-            {
-              name: 'JWT_SECRET'
-              secretRef: 'jwt-secret'
-            }
-          ]
+          env: appEnvVars
         }
       ]
       scale: {
