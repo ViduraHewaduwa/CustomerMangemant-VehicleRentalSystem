@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+APP_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+BICEP_TEMPLATE="$APP_ROOT/azure/containerapp.bicep"
+
 : "${AZURE_SUBSCRIPTION_ID:?Set AZURE_SUBSCRIPTION_ID}"
 : "${AZURE_RESOURCE_GROUP:?Set AZURE_RESOURCE_GROUP}"
 : "${AZURE_LOCATION:?Set AZURE_LOCATION}"
@@ -25,7 +29,7 @@ az group create \
 az deployment group create \
   --name "$DEPLOYMENT_NAME" \
   --resource-group "$AZURE_RESOURCE_GROUP" \
-  --template-file "azure/containerapp.bicep" \
+  --template-file "$BICEP_TEMPLATE" \
   --parameters \
       acrName="$ACR_NAME" \
       logAnalyticsWorkspaceName="$LOG_ANALYTICS_NAME" \
