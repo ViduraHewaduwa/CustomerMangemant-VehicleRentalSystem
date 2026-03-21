@@ -13,6 +13,7 @@ set -euo pipefail
 : "${DB_PASSWORD:?Set DB_PASSWORD}"
 : "${JWT_SECRET:?Set JWT_SECRET}"
 : "${IMAGE_TAG:=latest}"
+: "${DEPLOYMENT_NAME:=containerapp-$(date -u +%Y%m%d%H%M%S)}"
 
 az account set --subscription "$AZURE_SUBSCRIPTION_ID"
 
@@ -22,6 +23,7 @@ az group create \
   --output none
 
 az deployment group create \
+  --name "$DEPLOYMENT_NAME" \
   --resource-group "$AZURE_RESOURCE_GROUP" \
   --template-file "azure/containerapp.bicep" \
   --parameters \
