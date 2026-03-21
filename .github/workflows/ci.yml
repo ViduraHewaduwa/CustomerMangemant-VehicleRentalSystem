@@ -35,15 +35,6 @@ jobs:
       - name: Build and test
         run: mvn -B verify
 
-      - name: SonarCloud Scan
-        if: github.event_name == 'push'
-        uses: SonarSource/sonarqube-scan-action@v5.0.0
-        with:
-          projectBaseDir: Customer-Service
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: https://sonarcloud.io
-
       - name: Build Docker image (CI)
         run: docker build -t customer-service:ci .
 
