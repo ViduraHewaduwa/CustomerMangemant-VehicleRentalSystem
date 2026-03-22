@@ -37,14 +37,12 @@ jobs:
         run: mvn -B verify
 
       - name: SonarCloud Scan
-        if: github.event_name == 'push'
-        uses: SonarSource/sonarcloud-github-action@v2
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        uses: SonarSource/sonarcloud-github-action@master
         with:
-          projectBaseDir: "Customer-Service"
-          args: >
-            -Dsonar.organization=${{ env.SONAR_ORGANIZATION }}
+          projectBaseDir: Customer-Service
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
       - name: Build Docker image (CI)
         run: docker build -t customer-service:ci .
