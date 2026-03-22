@@ -11,6 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+    defaults:
+      run:
+        working-directory: "Customer-Service "
     env:
       IMAGE_NAME: customer-service
       ACR_NAME: ${{ secrets.ACR_NAME }}
@@ -38,6 +41,7 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
+          projectBaseDir: "Customer-Service "
           args: >
             -Dsonar.organization=${{ vars.SONAR_ORGANIZATION }}
 
