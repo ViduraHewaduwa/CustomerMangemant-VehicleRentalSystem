@@ -1,0 +1,18 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "acrName": { "value": "<acrName>" },
+    "logAnalyticsWorkspaceName": { "value": "<logAnalyticsWorkspaceName>" },
+    "containerAppsEnvName": { "value": "<containerAppsEnvName>" },
+    "containerAppName": { "value": "<containerAppName>" },
+    "imageName": { "value": "customer-service" },
+    "imageTag": { "value": "latest" },
+    "dbUrl": { "value": "jdbc:mysql://<db-host>:3306/customer_service?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC" },
+    "dbUsername": { "value": "<db-username>" },
+    "dbPassword": { "value": "<db-password>" },
+    "jwtSecret": { "value": "<jwt-secret>" },
+    "cpu": { "value": "0.5" },
+    "memory": { "value": "1.0Gi" }
+  }
+}
