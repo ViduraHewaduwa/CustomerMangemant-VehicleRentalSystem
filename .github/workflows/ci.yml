@@ -13,7 +13,7 @@ jobs:
       contents: read
     defaults:
       run:
-        working-directory: "Customer-Service "
+        working-directory: "Customer-Service"
     env:
       IMAGE_NAME: customer-service
       ACR_NAME: ${{ secrets.ACR_NAME }}
@@ -33,7 +33,6 @@ jobs:
           cache: "maven"
 
       - name: Build and test
-        working-directory: "Customer-Service "
         run: mvn -B verify
 
       - name: SonarCloud Scan
@@ -42,7 +41,7 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
-          projectBaseDir: "Customer-Service "
+          projectBaseDir: "Customer-Service"
           args: >
             -Dsonar.organization=${{ vars.SONAR_ORGANIZATION }}
 
